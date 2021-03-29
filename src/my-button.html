@@ -1,0 +1,29 @@
+<template id="my-button">
+    <button>Mark as important !</button>
+</template>
+<script>
+    class MyButton extends HTMLElement {
+        constructor(...args) {
+            const self = super(...args);
+
+            const template = document.querySelector("template#my-button");
+            const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
+                template.content.cloneNode(true)
+            );
+
+            self.addEventListener("click", self.onClick);
+
+            return self;
+        }
+
+        onClick(event) {
+            let customEvent = new CustomEvent("activate", {
+                bubbles: true,
+                composed: true,
+            });
+            event.target.dispatchEvent(customEvent);
+        }
+    }
+
+    customElements.define("my-button", MyButton);
+</script>

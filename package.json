@@ -1,0 +1,16 @@
+{
+  "name": "web-components-poc",
+  "version": "1.0.0",
+  "description": "An experimentation on building web components",
+  "main": "index.html",
+  "scripts": {
+    "build": "polymer-bundler index.html --out-dir dist",
+    "start": "http-server dist -c-1"
+  },
+  "author": "Yvan",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.12.3",
+    "polymer-bundler": "^4.0.10"
+  }
+}

@@ -1,0 +1,49 @@
+<template id="my-app">
+    <style>
+        :host {
+            color: blue;
+        }
+
+        :host([important]) {
+            color: red;
+        }
+    </style>
+    <h2>
+        <slot name="custom-message">Mysterious</slot>
+    </h2>
+    <my-button></my-button>
+</template>
+<script>
+    class MyApp extends HTMLElement {
+        get important() {
+            return this.hasAttribute("important");
+        }
+
+        set important(value) {
+            if (value) {
+                this.setAttribute("important", "important");
+            } else {
+                this.removeAttribute("important");
+            }
+        }
+
+        constructor(...args) {
+            const self = super(...args);
+
+            const template = document.querySelector("template#my-app");
+            const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
+                template.content.cloneNode(true)
+            );
+
+            self.addEventListener("activate", self.onActivate);
+
+            return self;
+        }
+
+        onActivate() {
+            this.important = true;
+        }
+    }
+
+    customElements.define("my-app", MyApp);
+</script>
